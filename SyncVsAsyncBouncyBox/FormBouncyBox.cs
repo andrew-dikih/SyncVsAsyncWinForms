@@ -16,5 +16,10 @@ namespace SyncVsAsyncBouncyBox
         {
 
         }
+
+        private void FormBouncyBox_Shown(object sender, EventArgs e)
+        {
+            bouncyBox.Start();
+        }
     }
 }

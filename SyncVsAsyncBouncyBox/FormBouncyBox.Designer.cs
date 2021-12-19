@@ -29,21 +29,32 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bouncyBox = new SyncVsAsyncBouncyBox.BouncyBox();
             this.butAsync = new System.Windows.Forms.Button();
             this.butSync = new System.Windows.Forms.Button();
-            this.bouncyBox1 = new SyncVsAsyncBouncyBox.BouncyBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.bouncyBox1);
+            this.panel1.Controls.Add(this.bouncyBox);
             this.panel1.Controls.Add(this.butAsync);
             this.panel1.Controls.Add(this.butSync);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(801, 451);
             this.panel1.TabIndex = 0;
+            // 
+            // bouncyBox
+            // 
+            this.bouncyBox.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bouncyBox.Interval = 2000;
+            this.bouncyBox.Location = new System.Drawing.Point(8, 7);
+            this.bouncyBox.Multiline = true;
+            this.bouncyBox.Name = "bouncyBox";
+            this.bouncyBox.Size = new System.Drawing.Size(100, 88);
+            this.bouncyBox.TabIndex = 2;
+            this.bouncyBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // butAsync
             // 
@@ -65,16 +76,6 @@
             this.butSync.UseVisualStyleBackColor = true;
             this.butSync.Click += new System.EventHandler(this.butSync_Click);
             // 
-            // bouncyBox1
-            // 
-            this.bouncyBox1.Interval = 2000;
-            this.bouncyBox1.Location = new System.Drawing.Point(8, 7);
-            this.bouncyBox1.Multiline = true;
-            this.bouncyBox1.Name = "bouncyBox1";
-            this.bouncyBox1.Size = new System.Drawing.Size(100, 88);
-            this.bouncyBox1.TabIndex = 2;
-            this.bouncyBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // FormBouncyBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -83,6 +84,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "FormBouncyBox";
             this.Text = "Form1";
+            this.Shown += new System.EventHandler(this.FormBouncyBox_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -94,6 +96,6 @@
         private Panel panel1;
         private Button butAsync;
         private Button butSync;
-        private BouncyBox bouncyBox1;
+        private BouncyBox bouncyBox;
     }
 }

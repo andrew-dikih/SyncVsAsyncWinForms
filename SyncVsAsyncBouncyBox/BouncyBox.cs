@@ -25,6 +25,8 @@ namespace SyncVsAsyncBouncyBox
             }
         }
 
+        public string CustomText { get; set; }
+
         private System.Windows.Forms.Timer _redrawTimer;
         private System.Windows.Forms.Timer _oneSecondTimer;
         private System.Windows.Forms.Timer _variableSecondTimer;
@@ -52,6 +54,7 @@ namespace SyncVsAsyncBouncyBox
             _oneSecondTimer.Tick += _oneSecondTimer_Tick;
             _xDirection = 1;//Initialize moving to the right
             _yDirection = 1;//Initialize moving down
+            CustomText = "";
         }
 
         public void Start()
@@ -110,7 +113,7 @@ namespace SyncVsAsyncBouncyBox
 
         private void _oneSecondTimer_Tick(object? sender, EventArgs e)
         {
-            this.Text = $"{_elapsed++}";
+            this.Text = $"{_elapsed++}\n{CustomText}";
         }
 
         protected override void OnPaint(PaintEventArgs pe)
