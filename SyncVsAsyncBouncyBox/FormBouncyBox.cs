@@ -1,25 +1,24 @@
-namespace SyncVsAsyncBouncyBox
+namespace SyncVsAsyncBouncyBox;
+
+public partial class FormBouncyBox : Form
 {
-    public partial class FormBouncyBox : Form
+    public FormBouncyBox()
     {
-        public FormBouncyBox()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void butSync_Click(object sender, EventArgs e)
-        {
+    private void butSync_Click(object sender, EventArgs e)
+    {
 
-        }
+    }
 
-        private void butAsync_Click(object sender, EventArgs e)
-        {
+    private void butAsync_Click(object sender, EventArgs e)
+    {
 
-        }
+    }
 
-        private void FormBouncyBox_Shown(object sender, EventArgs e)
-        {
-            bouncyBox.Start();
-        }
+    private void FormBouncyBox_Shown(object sender, EventArgs e)
+    {
+        bouncyBox.Start();
     }
 }

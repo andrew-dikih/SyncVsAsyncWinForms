@@ -9,6 +9,7 @@ namespace SyncVsAsyncBouncyBox
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+
             Application.Run(new FormBouncyBox());
         }
     }
