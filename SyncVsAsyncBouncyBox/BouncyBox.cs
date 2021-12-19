@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace SyncVsAsyncBouncyBox;
 
 public partial class BouncyBox : TextBox
 {
+    private const int _tenthSecond = 100;
     public event BouncyBoxEvent? OnTick;
     public int Interval
     {
@@ -28,11 +30,13 @@ public partial class BouncyBox : TextBox
     public string CustomText { get; set; }
 
     private System.Windows.Forms.Timer _redrawTimer;
-    private System.Windows.Forms.Timer _oneSecondTimer;
+    private System.Windows.Forms.Timer _tenthSecondTimer;
     private System.Windows.Forms.Timer _variableSecondTimer;
-    private int _elapsed;
+    private Stopwatch _stopwatch;
     private int _xDirection;
     private int _yDirection;
+
+    private double _elapsed => _stopwatch.ElapsedMilliseconds/1000d;
 
     public BouncyBox() : base()
     {
@@ -42,16 +46,17 @@ public partial class BouncyBox : TextBox
             Interval = 10,
         };
         _redrawTimer.Tick += _redrawTimer_Tick;
-        _oneSecondTimer = new System.Windows.Forms.Timer()
+        _tenthSecondTimer = new System.Windows.Forms.Timer()
         {
-            Interval = 1000,
+            Interval = _tenthSecond,
         };
         _variableSecondTimer = new System.Windows.Forms.Timer()
         {
-            Interval = 2000,
+            Interval = 500,
         };
         _variableSecondTimer.Tick += __variableSecondTimer_Tick;
-        _oneSecondTimer.Tick += _oneSecondTimer_Tick;
+        _tenthSecondTimer.Tick += _oneSecondTimer_Tick;
+        _stopwatch = new Stopwatch();
         _xDirection = 1;//Initialize moving to the right
         _yDirection = 1;//Initialize moving down
         CustomText = "";
@@ -60,25 +65,29 @@ public partial class BouncyBox : TextBox
     public void Start()
     {
         _redrawTimer.Start();
-        _oneSecondTimer.Start();
+        _tenthSecondTimer.Start();
         _variableSecondTimer.Start();
+        _stopwatch.Start();
     }
     public void Stop()
     {
         _redrawTimer.Stop();
-        _oneSecondTimer.Stop();
+        _tenthSecondTimer.Stop();
         _variableSecondTimer.Stop();
+        _stopwatch.Stop();
+        _stopwatch.Reset();
     }
 
     public void Reset()
     {
-        _elapsed = 0;
         Location = new Point(0, 0);
+        Stop();
+        Start();
     }
 
     private void __variableSecondTimer_Tick(object? sender, EventArgs e)
     {
-        OnTick?.Invoke(this);
+        OnTick?.Invoke(this,_elapsed);
     }
 
     private void _redrawTimer_Tick(object? sender, EventArgs e)
@@ -113,7 +122,7 @@ public partial class BouncyBox : TextBox
 
     private void _oneSecondTimer_Tick(object? sender, EventArgs e)
     {
-        this.Text = $"{_elapsed++}\n{CustomText}";
+        this.Text = $"{_elapsed.ToString("F1")}\r\n{CustomText}";
     }
 
     protected override void OnPaint(PaintEventArgs pe)
@@ -121,5 +130,5 @@ public partial class BouncyBox : TextBox
         base.OnPaint(pe);
     }
 
-    public delegate void BouncyBoxEvent(BouncyBox bouncyBox);
+    public delegate void BouncyBoxEvent(BouncyBox bouncyBox,double elapsed);
 }

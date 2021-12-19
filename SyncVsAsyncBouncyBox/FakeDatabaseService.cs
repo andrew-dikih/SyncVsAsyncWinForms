@@ -3,23 +3,23 @@
 public class FakeDatabaseService : IDatabase
 {
     private List<string> _values;
-    public int _delay {  get; set; }
+    public int Delay {  get; set; }
 
     public FakeDatabaseService()
     {
-        _delay = 500;
+        Delay = 500;
         _values = new List<string>() { "A", "B", "C", "D", "E" };
     }
 
     public string GetSync(int index)
     {
-        Thread.Sleep(_delay);
+        Thread.Sleep(Delay);
         return GetOne(index);
     }
 
     public async Task<string> GetSyncAsync(int index)
     {
-        await Task.Delay(_delay);
+        await Task.Delay(Delay);
         return GetOne(index);
     }
 
