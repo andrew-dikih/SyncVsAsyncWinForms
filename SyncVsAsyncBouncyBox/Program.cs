@@ -9,8 +9,8 @@ namespace SyncVsAsyncBouncyBox
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-
-            Application.Run(new FormBouncyBox());
+            IDatabase fakeDatabaseService = new FakeDatabaseService();
+            Application.Run(new FormBouncyBox(fakeDatabaseService));
         }
     }
 }

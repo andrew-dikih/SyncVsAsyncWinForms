@@ -2,9 +2,12 @@ namespace SyncVsAsyncBouncyBox;
 
 public partial class FormBouncyBox : Form
 {
-    public FormBouncyBox()
+    private readonly IDatabase _database;
+
+    public FormBouncyBox(IDatabase database)
     {
         InitializeComponent();
+        _database = database;
     }
 
     private void butSync_Click(object sender, EventArgs e)
