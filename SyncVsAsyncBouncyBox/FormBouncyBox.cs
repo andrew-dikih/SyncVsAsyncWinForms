@@ -21,14 +21,26 @@ public partial class FormBouncyBox : Form
 
     private void butSync_Click(object sender, EventArgs e)
     {
-        _syncState = SyncState.Sync;
+        Toggle(SyncState.Sync);
         WireButtons();
     }
 
     private void butAsync_Click(object sender, EventArgs e)
     {
-        _syncState = SyncState.Async;
+        Toggle(SyncState.Async);
         WireButtons();
+    }
+
+    private void Toggle(SyncState syncState)
+    {
+        if (_syncState == syncState)
+        {
+            _syncState = SyncState.None;
+        }
+        else
+        {
+            _syncState = syncState;
+        }
     }
 
     private void WireButtons()
